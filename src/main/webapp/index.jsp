@@ -5,12 +5,11 @@
 	import="org.springframework.security.core.context.SecurityContextHolder"%>
 <%@page import="org.pac4j.core.context.*"%>
 <%@page import="org.pac4j.core.profile.*"%>
-<%@page import="org.pac4j.http.client.*"%>
 <%@page import="org.pac4j.cas.client.*"%>
 
 <%
 
-String keystorePath = "/home/gnu/.keystore";
+String keystorePath = "/home/gnu/keystore.jks";
 System.setProperty("javax.net.ssl.trustStore", keystorePath);
 
 	WebContext context = new J2EContext(request, response);
