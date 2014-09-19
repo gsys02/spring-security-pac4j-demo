@@ -7,15 +7,6 @@
 <%@page import="org.pac4j.core.profile.*"%>
 <%@page import="org.pac4j.cas.client.*"%>
 
-<%
-
-String keystorePath = "/home/gnu/keystore.jks";
-System.setProperty("javax.net.ssl.trustStore", keystorePath);
-
-	WebContext context = new J2EContext(request, response);
-	CasClient casClient = (CasClient) application
-			.getAttribute("CasClient");
-%>
 <h1>index</h1>
 <a href="cas/index.jsp">Protected url by CAS : cas/index.jsp</a>
 <br />
@@ -29,9 +20,7 @@ System.setProperty("javax.net.ssl.trustStore", keystorePath);
 			.getContext().getAuthentication();
 
 	UserProfile profile = null;
-	
-	//ClientAuthenticationToken t = (ClientAuthenticationToken) auth;
-	
+
 	if (auth != null && auth instanceof ClientAuthenticationToken) {
 		ClientAuthenticationToken token = (ClientAuthenticationToken) auth;
 		profile = token.getUserProfile();
@@ -42,13 +31,20 @@ profile :
 <br />
 <br />
 <hr />
+
+
+
 <%
+	WebContext context = new J2EContext(request, response);
+	CasClient casClient = (CasClient) application
+			.getAttribute("CasClient");
+
 	try {
 %>
 <a
 	href="<%=casClient.getRedirectAction(context, false, false)
-						.getLocation()%>">Authenticate
-	with CAS</a>
+						.getLocation()%>">
+	Authenticate with CAS </a>
 <br />
 <%
 	} catch (RequiresHttpAction e) {
